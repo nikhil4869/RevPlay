@@ -1,0 +1,11 @@
+#Fri Jan 30 01:55:54 IST 2026
+eclipse.preferences.version=1
+encoding//src/com/revplay/dao/RecentlyPlayedDao.java=UTF-8
+encoding//src/com/revplay/dao/UserDao.java=UTF-8
+encoding//src/com/revplay/main/RevPlayApp.java=UTF-8
+encoding//src/com/revplay/service/AlbumService.java=UTF-8
+encoding//src/com/revplay/service/PlayerService.java=UTF-8
+encoding//src/com/revplay/service/SongService.java=UTF-8
+encoding//src/com/revplay/service/UserService.java=UTF-8
+encoding//src/com/revplay/ui/UserMenuUI.java=UTF-8
+encoding//src/com/revplay/util/DBConnection.java=UTF-8
