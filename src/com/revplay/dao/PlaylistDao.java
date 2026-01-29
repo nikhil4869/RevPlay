@@ -121,6 +121,36 @@ public class PlaylistDao {
         }
         return songs;
     }
+    
+ // 🔹 Get PUBLIC playlists of OTHER users
+    public List<Playlist> getPublicPlaylists(int currentUserId) {
+
+        List<Playlist> list = new ArrayList<Playlist>();
+
+        String sql = "SELECT * FROM PLAYLISTS WHERE PRIVACY='PUBLIC' AND USER_ID<>?";
+
+        try {
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, currentUserId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Playlist p = new Playlist();
+                p.setPlaylistId(rs.getInt("PLAYLIST_ID"));
+                p.setName(rs.getString("NAME"));
+                p.setDescription(rs.getString("DESCRIPTION"));
+                p.setPrivacy(rs.getString("PRIVACY"));
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
 
 }

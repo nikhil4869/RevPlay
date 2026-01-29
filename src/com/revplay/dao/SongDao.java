@@ -8,6 +8,7 @@ import com.revplay.util.DBConnection;
 
 public class SongDao {
 
+
     // ================= ADD SONG =================
     public boolean addSong(Song song) {
         String sql = "INSERT INTO SONGS (SONG_ID, ALBUM_ID, ARTIST_ID, TITLE, GENRE, DURATION, RELEASE_DATE, PLAY_COUNT) " +

@@ -1,16 +1,23 @@
 package com.revplay.main;
 
 import java.util.Scanner;
+
+import com.revplay.dao.UserDao;
 import com.revplay.model.User;
+import com.revplay.service.UserService;
+import com.revplay.ui.ArtistMenu;
 import com.revplay.ui.UserMenu;
 import com.revplay.ui.UserMenuUI;
-import com.revplay.ui.ArtistMenu;
-import com.revplay.service.UserService;
 
 public class RevPlayApp {
 
     public static Scanner sc = new Scanner(System.in);
-    private static UserService userService = new UserService();
+
+    // 🔹 DAO Layer
+    private static UserDao userDao = new UserDao();
+
+    // 🔹 Service Layer (constructor injection)
+    private static UserService userService = new UserService(userDao);
 
     public static void main(String[] args) {
 
@@ -24,7 +31,6 @@ public class RevPlayApp {
 
             String input = sc.nextLine();
 
-            // 🔴 Empty input
             if (input == null || input.trim().isEmpty()) {
                 System.out.println("Please enter a choice.");
                 continue;
@@ -32,7 +38,6 @@ public class RevPlayApp {
 
             int choice;
 
-            // 🔴 Invalid number
             try {
                 choice = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -56,44 +61,8 @@ public class RevPlayApp {
                     }
                     break;
 
-                // 🆕 FORGOT PASSWORD FEATURE
                 case 3:
-                    try {
-                        System.out.print("Enter your registered Email: ");
-                        String email = sc.nextLine();
-
-                        System.out.print("Enter your Username: ");
-                        String username = sc.nextLine();
-
-                        // Validate empty
-                        if (email.trim().isEmpty() || username.trim().isEmpty()) {
-                            System.out.println("Fields cannot be empty.");
-                            break;
-                        }
-
-                        boolean verified = userService.verifyUser(email, username);
-
-                        if (!verified) {
-                            System.out.println("User not found. Check email/username.");
-                            break;
-                        }
-
-                        System.out.print("Enter New Password: ");
-                        String newPass = sc.nextLine();
-
-                        if (newPass.trim().isEmpty()) {
-                            System.out.println("Password cannot be empty.");
-                            break;
-                        }
-
-                        if (userService.resetPassword(email, newPass))
-                            System.out.println("Password reset successful! You can login now.");
-                        else
-                            System.out.println("Password reset failed.");
-
-                    } catch (Exception e) {
-                        System.out.println("Something went wrong. Try again.");
-                    }
+                    handleForgotPassword();
                     break;
 
                 case 4:
@@ -103,6 +72,45 @@ public class RevPlayApp {
                 default:
                     System.out.println("Invalid choice. Select 1-4.");
             }
+        }
+    }
+
+    // 🔹 Separated logic (clean design)
+    private static void handleForgotPassword() {
+        try {
+            System.out.print("Enter your registered Email: ");
+            String email = sc.nextLine();
+
+            System.out.print("Enter your Username: ");
+            String username = sc.nextLine();
+
+            if (email.trim().isEmpty() || username.trim().isEmpty()) {
+                System.out.println("Fields cannot be empty.");
+                return;
+            }
+
+            boolean verified = userService.verifyUser(email, username);
+
+            if (!verified) {
+                System.out.println("User not found. Check email/username.");
+                return;
+            }
+
+            System.out.print("Enter New Password: ");
+            String newPass = sc.nextLine();
+
+            if (newPass.trim().isEmpty()) {
+                System.out.println("Password cannot be empty.");
+                return;
+            }
+
+            if (userService.resetPassword(email, newPass))
+                System.out.println("Password reset successful! You can login now.");
+            else
+                System.out.println("Password reset failed.");
+
+        } catch (Exception e) {
+            System.out.println("Something went wrong. Try again.");
         }
     }
 }

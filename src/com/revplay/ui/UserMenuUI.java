@@ -3,25 +3,37 @@ package com.revplay.ui;
 import com.revplay.main.RevPlayApp;
 import com.revplay.model.Playlist;
 import com.revplay.model.Song;
-
 import com.revplay.model.User;
+
+import com.revplay.dao.*;
 import com.revplay.service.*;
 
 import java.util.List;
 
 public class UserMenuUI {
 
-	private static PlayerService playerService = new PlayerService();
-    private static PlaylistService playlistService = new PlaylistService();
-    private static FavoriteService favoriteService = new FavoriteService();
-    private static SongService songService = new SongService();
-    private static RecentlyPlayedService recentService = new RecentlyPlayedService();
-    private static AlbumService albumService = new AlbumService();
+    // 🔹 CREATE DAO LAYER
+    private static SongDao songDao = new SongDao();
+    private static PlaylistDao playlistDao = new PlaylistDao();
+    private static FavoriteDao favoriteDao = new FavoriteDao();
+    private static RecentlyPlayedDao recentDao = new RecentlyPlayedDao();
+    private static AlbumDao albumDao = new AlbumDao();
 
+    // 🔹 CREATE SERVICE LAYER (constructor injection)
+    private static SongService songService = new SongService(songDao);
+    private static PlaylistService playlistService = new PlaylistService(playlistDao);
+    private static FavoriteService favoriteService = new FavoriteService(favoriteDao);
+    private static RecentlyPlayedService recentService = new RecentlyPlayedService(recentDao);
+    private static AlbumService albumService = new AlbumService(albumDao);
+
+    // 🔹 PlayerService depends on 2 services
+    private static PlayerService playerService =
+            new PlayerService(songService, recentService);
 
     public static void showMenu(User user) {
 
-    	playerService.setUser(user.getUserId());
+        playerService.setUser(user.getUserId());
+
         while (true) {
             System.out.println("\n=== USER MENU ===");
             System.out.println("1. Browse Songs");
@@ -37,12 +49,12 @@ public class UserMenuUI {
             System.out.println("11. Recently Played Songs");
             System.out.println("12. Search Song By Album");
             System.out.println("13. Browse Songs by Category");
-            System.out.println("14. Logout");
+            System.out.println("14. View Public Playlists");
+            System.out.println("15. Logout");
             System.out.print("Choice: ");
 
             String input = RevPlayApp.sc.nextLine();
 
-            // ðŸ”´ Empty input
             if (input.isEmpty()) {
                 System.out.println("Please enter a choice.");
                 continue;
@@ -50,7 +62,6 @@ public class UserMenuUI {
 
             int ch;
 
-            // ðŸ”´ Not a number
             try {
                 ch = Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -58,21 +69,20 @@ public class UserMenuUI {
                 continue;
             }
 
-            // ðŸ”´ Number but not in menu range
             if (ch < 1 || ch > 15) {
                 System.out.println("Wrong choice number. Try again.");
                 continue;
             }
 
             switch (ch) {
+
                 case 1:
-                	List<Song> songs = songService.viewAllSongs();
-                	for (Song s : songs) {
-                	    System.out.println(s.getSongId() + " - " + s.getTitle());
-                	}
-
+                    List<Song> songs = songService.viewAllSongs();
+                    for (Song s : songs) {
+                        System.out.println(s.getSongId() + " - " + s.getTitle());
+                    }
                     break;
-
+                    
                 case 2:
                     System.out.print("Name: ");
                     String name = RevPlayApp.sc.nextLine();
@@ -182,7 +192,7 @@ public class UserMenuUI {
                     }
 
                     if (!validPlaylist) {
-                        System.out.println("â�Œ Invalid Playlist ID.");
+                        System.out.println("â Œ Invalid Playlist ID.");
                         break;
                     }
 
@@ -257,7 +267,7 @@ public class UserMenuUI {
                     }
 
                     if (!validPlaylist2) {
-                        System.out.println("â�Œ Invalid Playlist ID.");
+                        System.out.println("â Œ Invalid Playlist ID.");
                         break;
                     }
 
@@ -780,10 +790,72 @@ public class UserMenuUI {
                         System.out.println("Unexpected error while searching songs.");
                     }
                     break;
-
+                    
                 case 14:
-                    return;
+                    try {
+                        List<Playlist> publicPlaylists = playlistService.getPublicPlaylists(user.getUserId());
 
+                        if (publicPlaylists == null || publicPlaylists.isEmpty()) {
+                            System.out.println("No public playlists available.");
+                            break;
+                        }
+
+                        System.out.println("\n--- Public Playlists ---");
+                        for (Playlist pl : publicPlaylists) {
+                            System.out.println(pl.getPlaylistId() + " - " + pl.getName());
+                        }
+
+                        System.out.print("Enter Playlist ID to view songs (0 to cancel): ");
+                        String inputId = RevPlayApp.sc.nextLine();
+
+                        if (inputId == null || inputId.trim().isEmpty()) {
+                            System.out.println("Cancelled.");
+                            break;
+                        }
+
+                        int pid1;
+                        try {
+                            pid1 = Integer.parseInt(inputId);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid number.");
+                            break;
+                        }
+
+                        if (pid1 == 0) break;
+
+                        // 🔴 Validate ID
+                        boolean exists = false;
+                        for (Playlist pl : publicPlaylists) {
+                            if (pl.getPlaylistId() == pid1) {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists) {
+                            System.out.println("No playlist found with that ID.");
+                            break;
+                        }
+
+                        List<Song> songs1 = playlistService.getSongsInPlaylist(pid1);
+
+                        if (songs1 == null || songs1.isEmpty()) {
+                            System.out.println("This playlist has no songs.");
+                            break;
+                        }
+
+                        System.out.println("\n--- Songs in Public Playlist ---");
+                        for (Song s : songs1) {
+                            System.out.println(s.getSongId() + " - " + s.getTitle());
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("Error loading public playlists.");
+                    }
+                    break;
+
+                case 15:
+                    return;
             }
         }
     }

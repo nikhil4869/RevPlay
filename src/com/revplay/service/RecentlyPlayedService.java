@@ -1,18 +1,45 @@
 package com.revplay.service;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.revplay.dao.RecentlyPlayedDao;
 import com.revplay.model.Song;
 
 public class RecentlyPlayedService {
 
-    private RecentlyPlayedDao dao = new RecentlyPlayedDao();
+    private static final Logger logger = LoggerFactory.getLogger(RecentlyPlayedService.class);
 
-    public void addPlayedSong(int userId, int songId) {
-        dao.addEntry(userId, songId);
+    private RecentlyPlayedDao dao;
+
+    public RecentlyPlayedService(RecentlyPlayedDao dao) {
+        this.dao = dao;
     }
 
+    // 🔹 ADD PLAYED SONG
+    public void addPlayedSong(int userId, int songId) {
+
+        logger.info("Adding songId: {} to recently played for userId: {}", songId, userId);
+
+        try {
+            dao.addEntry(userId, songId);
+        } catch (Exception e) {
+            logger.error("Error adding recently played entry. userId: {}, songId: {}", userId, songId, e);
+        }
+    }
+
+    // 🔹 GET RECENT SONGS
     public List<Song> getRecentSongs(int userId) {
-        return dao.getRecentSongs(userId);
+
+        logger.debug("Fetching recently played songs for userId: {}", userId);
+
+        try {
+            return dao.getRecentSongs(userId);
+        } catch (Exception e) {
+            logger.error("Error fetching recently played songs for userId: {}", userId, e);
+            return null;
+        }
     }
 }

@@ -2,11 +2,17 @@ package com.revplay.ui;
 
 import com.revplay.main.RevPlayApp;
 import com.revplay.model.User;
+
+import com.revplay.dao.UserDao;
 import com.revplay.service.UserService;
 
 public class UserMenu {
 
-    private static UserService userService = new UserService();
+    // 🔹 DAO layer
+    private static UserDao userDao = new UserDao();
+
+    // 🔹 Service layer (constructor injection)
+    private static UserService userService = new UserService(userDao);
 
     public static void register() {
 
