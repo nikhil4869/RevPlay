@@ -27,7 +27,7 @@ public class AlbumServiceTest {
         service = new AlbumService(albumDao);
     }
 
-    // ================= CREATE ALBUM =================
+
     @Test
     public void testCreateAlbum() {
         when(albumDao.createAlbum(any(Album.class))).thenReturn(true);
@@ -38,7 +38,7 @@ public class AlbumServiceTest {
         verify(albumDao).createAlbum(any(Album.class));
     }
 
-    // ================= VIEW ARTIST ALBUMS =================
+
     @Test
     public void testViewMyAlbums() {
         List<Album> albums = new ArrayList<Album>();
@@ -50,7 +50,7 @@ public class AlbumServiceTest {
         verify(albumDao).getAlbumsByArtist(1);
     }
 
-    // ================= UPDATE ALBUM =================
+
     @Test
     public void testUpdateAlbum() {
         when(albumDao.updateAlbum(5, "NewName")).thenReturn(true);
@@ -61,7 +61,7 @@ public class AlbumServiceTest {
         verify(albumDao).updateAlbum(5, "NewName");
     }
 
-    // ================= DELETE ALBUM =================
+
     @Test
     public void testDeleteAlbum() {
         when(albumDao.deleteAlbum(5)).thenReturn(true);
@@ -72,7 +72,7 @@ public class AlbumServiceTest {
         verify(albumDao).deleteAlbum(5);
     }
 
-    // ================= FIND ALBUM ID BY NAME =================
+
     @Test
     public void testFindAlbumIdByName() {
         when(albumDao.getAlbumIdByName("Hits")).thenReturn(10);

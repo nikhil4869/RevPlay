@@ -25,7 +25,7 @@ public class ArtistServiceTest {
         service = new ArtistService(artistDao);
     }
 
-    // ================= CREATE PROFILE - SUCCESS =================
+
     @Test
     public void testCreateProfileSuccess() {
 
@@ -39,7 +39,7 @@ public class ArtistServiceTest {
         verify(artistDao).createProfile(any(Artist.class));
     }
 
-    // ================= CREATE PROFILE - ALREADY EXISTS =================
+
     @Test
     public void testCreateProfileAlreadyExists() {
 
@@ -52,7 +52,7 @@ public class ArtistServiceTest {
         verify(artistDao, never()).createProfile(any(Artist.class));
     }
 
-    // ================= UPDATE PROFILE =================
+
     @Test
     public void testUpdateProfile() {
 
@@ -64,7 +64,7 @@ public class ArtistServiceTest {
         verify(artistDao).updateProfile(any(Artist.class));
     }
 
-    // ================= GET PROFILE =================
+
     @Test
     public void testGetProfile() {
 
@@ -77,7 +77,7 @@ public class ArtistServiceTest {
         verify(artistDao).getArtistByUser(1);
     }
 
-    // ================= PROFILE EXISTS =================
+
     @Test
     public void testProfileExists() {
 

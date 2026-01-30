@@ -19,7 +19,7 @@ public class SongService {
         this.songDao = songDao;
     }
 
-    // ================= UPLOAD SONG =================
+
     public boolean uploadSong(String title, String genre, double duration,
                               Date releaseDate, int artistId, int albumId) {
 
@@ -49,13 +49,13 @@ public class SongService {
         }
     }
 
-    // ================= ARTIST SONGS =================
+
     public List<Song> viewMySongs(int artistId) {
         logger.debug("Fetching songs for artistId: {}", artistId);
         return songDao.getSongsByArtist(artistId);
     }
 
-    // ================= ALBUM SONGS =================
+
     public List<Song> viewSongsByAlbum(int albumId) {
         logger.debug("Fetching songs for albumId: {}", albumId);
         return songDao.getSongsByAlbum(albumId);
@@ -66,7 +66,7 @@ public class SongService {
         return songDao.getSongsByAlbum(albumId);
     }
 
-    // ================= UPDATE SONG =================
+
     public boolean updateSong(int songId, String title, String genre,
                               double dur, Date date) {
 
@@ -95,13 +95,13 @@ public class SongService {
         }
     }
 
-    // ================= DELETE SONG =================
+
     public boolean deleteSong(int songId) {
         logger.warn("Deleting songId: {}", songId);
         return songDao.deleteSong(songId);
     }
 
-    // ================= PLAY COUNT =================
+
     public int getPlayCount(int songId) {
         logger.debug("Fetching play count for songId: {}", songId);
         return songDao.getPlayCount(songId);
@@ -112,19 +112,19 @@ public class SongService {
         songDao.incrementPlayCount(songId);
     }
 
-    // ================= FAVORITES COUNT =================
+
     public int getFavoritesCount(int songId) {
         logger.debug("Fetching favorites count for songId: {}", songId);
         return songDao.getFavoritesCount(songId);
     }
 
-    // ================= ALL SONGS =================
+
     public List<Song> viewAllSongs() {
         logger.debug("Fetching all songs");
         return songDao.getAllSongs();
     }
 
-    // ================= SONG EXISTS =================
+
     public boolean songExists(int songId) {
         logger.debug("Checking if song exists: {}", songId);
 
@@ -140,7 +140,7 @@ public class SongService {
         return false;
     }
 
-    // ================= BROWSING FEATURES =================
+
     public List<Song> getSongsByGenre(String genre) {
         logger.info("Browsing songs by genre: {}", genre);
         return songDao.getSongsByGenre(genre);

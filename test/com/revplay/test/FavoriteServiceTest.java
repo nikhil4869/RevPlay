@@ -27,7 +27,7 @@ public class FavoriteServiceTest {
         service = new FavoriteService(favoriteDao);
     }
 
-    // ================= ADD FAVORITE =================
+
     @Test
     public void testAddFavorite() {
         when(favoriteDao.addFavorite(1, 10)).thenReturn(true);
@@ -38,7 +38,7 @@ public class FavoriteServiceTest {
         verify(favoriteDao).addFavorite(1, 10);
     }
 
-    // ================= REMOVE FAVORITE =================
+
     @Test
     public void testRemoveFavorite() {
         when(favoriteDao.removeFavorite(1, 10)).thenReturn(true);
@@ -49,7 +49,7 @@ public class FavoriteServiceTest {
         verify(favoriteDao).removeFavorite(1, 10);
     }
 
-    // ================= GET FAVORITES =================
+
     @Test
     public void testGetFavorites() {
         List<Song> songs = new ArrayList<Song>();

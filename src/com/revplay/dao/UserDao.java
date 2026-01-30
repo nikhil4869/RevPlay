@@ -9,7 +9,7 @@ import com.revplay.util.DBConnection;
 
 public class UserDao {
 
-    // 🔹 REGISTER USER
+
     public boolean registerUser(User user) {
         String sql = "INSERT INTO USERS (USERNAME, EMAIL, PASSWORD, ROLE) VALUES (?, ?, ?, ?)";
 
@@ -29,7 +29,7 @@ public class UserDao {
         return false;
     }
 
-    // 🔹 LOGIN
+
     public User login(String input, String password) {
         String sql = "SELECT * FROM USERS WHERE (EMAIL=? OR USERNAME=?) AND PASSWORD=?";
 
@@ -59,7 +59,7 @@ public class UserDao {
         return null;
     }
 
-    // 🆕 🔹 VERIFY USER FOR FORGOT PASSWORD
+
     public boolean verifyUser(String email, String username) {
         String sql = "SELECT USER_ID FROM USERS WHERE EMAIL=? AND USERNAME=?";
 
@@ -79,7 +79,7 @@ public class UserDao {
         return false;
     }
 
-    // 🆕 🔹 UPDATE PASSWORD
+
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE USERS SET PASSWORD=? WHERE EMAIL=?";
 

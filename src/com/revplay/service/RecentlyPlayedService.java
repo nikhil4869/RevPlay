@@ -18,7 +18,7 @@ public class RecentlyPlayedService {
         this.dao = dao;
     }
 
-    // 🔹 ADD PLAYED SONG
+
     public void addPlayedSong(int userId, int songId) {
 
         logger.info("Adding songId: {} to recently played for userId: {}", songId, userId);
@@ -30,7 +30,7 @@ public class RecentlyPlayedService {
         }
     }
 
-    // 🔹 GET RECENT SONGS
+
     public List<Song> getRecentSongs(int userId) {
 
         logger.debug("Fetching recently played songs for userId: {}", userId);

@@ -27,7 +27,7 @@ public class RecentlyPlayedServiceTest {
         service = new RecentlyPlayedService(dao);
     }
 
-    // ================= ADD PLAYED SONG =================
+
     @Test
     public void testAddPlayedSong() {
         service.addPlayedSong(1, 101);
@@ -35,7 +35,7 @@ public class RecentlyPlayedServiceTest {
         verify(dao).addEntry(1, 101);
     }
 
-    // ================= GET RECENT SONGS =================
+
     @Test
     public void testGetRecentSongs() {
         List<Song> mockSongs = new ArrayList<Song>();

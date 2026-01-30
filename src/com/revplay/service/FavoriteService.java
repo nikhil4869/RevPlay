@@ -18,7 +18,7 @@ public class FavoriteService {
         this.favoriteDao = favoriteDao;
     }
 
-    // 🔹 ADD FAVORITE
+
     public boolean add(int userId, int songId) {
 
         logger.info("User {} adding songId {} to favorites", userId, songId);
@@ -37,7 +37,7 @@ public class FavoriteService {
         }
     }
 
-    // 🔹 REMOVE FAVORITE
+ 
     public boolean remove(int userId, int songId) {
 
         logger.warn("User {} removing songId {} from favorites", userId, songId);
@@ -50,7 +50,7 @@ public class FavoriteService {
         }
     }
 
-    // 🔹 GET FAVORITES
+
     public List<Song> getFavorites(int userId) {
 
         logger.debug("Fetching favorites for userId: {}", userId);

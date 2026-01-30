@@ -27,7 +27,7 @@ public class SongServiceTest {
         songService = new SongService(songDao);
     }
 
-    // ================= UPLOAD SONG =================
+
     @Test
     public void testUploadSong() {
         when(songDao.addSong(any(Song.class))).thenReturn(true);
@@ -39,7 +39,7 @@ public class SongServiceTest {
         verify(songDao).addSong(any(Song.class));
     }
 
-    // ================= VIEW ARTIST SONGS =================
+
     @Test
     public void testViewMySongs() {
         List<Song> mockList = new ArrayList<Song>();
@@ -51,7 +51,7 @@ public class SongServiceTest {
         verify(songDao).getSongsByArtist(1);
     }
 
-    // ================= UPDATE SONG =================
+
     @Test
     public void testUpdateSong() {
         when(songDao.updateSong(any(Song.class))).thenReturn(true);
@@ -62,7 +62,7 @@ public class SongServiceTest {
         verify(songDao).updateSong(any(Song.class));
     }
 
-    // ================= DELETE SONG =================
+
     @Test
     public void testDeleteSong() {
         when(songDao.deleteSong(5)).thenReturn(true);
@@ -73,7 +73,6 @@ public class SongServiceTest {
         verify(songDao).deleteSong(5);
     }
 
-    // ================= PLAY COUNT =================
     @Test
     public void testGetPlayCount() {
         when(songDao.getPlayCount(2)).thenReturn(100);
@@ -90,7 +89,7 @@ public class SongServiceTest {
         verify(songDao).incrementPlayCount(2);
     }
 
-    // ================= FAVORITES =================
+
     @Test
     public void testGetFavoritesCount() {
         when(songDao.getFavoritesCount(3)).thenReturn(50);
@@ -101,7 +100,7 @@ public class SongServiceTest {
         verify(songDao).getFavoritesCount(3);
     }
 
-    // ================= VIEW ALL SONGS =================
+
     @Test
     public void testViewAllSongs() {
         List<Song> list = new ArrayList<Song>();
@@ -113,7 +112,7 @@ public class SongServiceTest {
         verify(songDao).getAllSongs();
     }
 
-    // ================= SONG EXISTS (Business Logic) =================
+
     @Test
     public void testSongExistsTrue() {
         Song s = new Song();
@@ -139,7 +138,7 @@ public class SongServiceTest {
         assertFalse(exists);
     }
 
-    // ================= BROWSING FEATURES =================
+
     @Test
     public void testGetSongsByGenre() {
         when(songDao.getSongsByGenre("Pop")).thenReturn(new ArrayList<Song>());

@@ -20,7 +20,7 @@ public class PlayerService {
         this.recentService = recentService;
     }
 
-    // 🔹 PLAY SONG
+
     public void playSong(int songId) {
 
         logger.info("User {} started playing songId: {}", currentUserId, songId);
@@ -39,7 +39,7 @@ public class PlayerService {
         }
     }
 
-    // 🔹 PAUSE SONG
+
     public void pauseSong() {
 
         if (!isPlaying) {
@@ -53,7 +53,7 @@ public class PlayerService {
         System.out.println("⏸ Song Paused.");
     }
 
-    // 🔹 RESUME SONG
+
     public void resumeSong() {
 
         if (isPlaying && isPaused) {
@@ -66,7 +66,7 @@ public class PlayerService {
         }
     }
 
-    // 🔹 STOP SONG
+
     public void stopSong() {
 
         logger.info("Song stopped. songId: {}", currentSongId);

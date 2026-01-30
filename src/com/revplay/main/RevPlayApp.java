@@ -13,10 +13,10 @@ public class RevPlayApp {
 
     public static Scanner sc = new Scanner(System.in);
 
-    // 🔹 DAO Layer
+
     private static UserDao userDao = new UserDao();
 
-    // 🔹 Service Layer (constructor injection)
+
     private static UserService userService = new UserService(userDao);
 
     public static void main(String[] args) {
@@ -75,7 +75,7 @@ public class RevPlayApp {
         }
     }
 
-    // 🔹 Separated logic (clean design)
+
     private static void handleForgotPassword() {
         try {
             System.out.print("Enter your registered Email: ");

@@ -28,7 +28,7 @@ public class PlaylistServiceTest {
         service = new PlaylistService(dao);
     }
 
-    // ================= CREATE PLAYLIST =================
+
     @Test
     public void testCreatePlaylist() {
         when(dao.createPlaylist(any(Playlist.class))).thenReturn(true);
@@ -39,7 +39,7 @@ public class PlaylistServiceTest {
         verify(dao).createPlaylist(any(Playlist.class));
     }
 
-    // ================= GET USER PLAYLISTS =================
+
     @Test
     public void testGetMine() {
         List<Playlist> list = new ArrayList<Playlist>();
@@ -51,7 +51,7 @@ public class PlaylistServiceTest {
         verify(dao).getUserPlaylists(1);
     }
 
-    // ================= ADD SONG =================
+
     @Test
     public void testAddSong() {
         when(dao.addSong(10, 20)).thenReturn(true);
@@ -62,7 +62,7 @@ public class PlaylistServiceTest {
         verify(dao).addSong(10, 20);
     }
 
-    // ================= REMOVE SONG =================
+
     @Test
     public void testRemoveSong() {
         when(dao.removeSong(10, 20)).thenReturn(true);
@@ -73,7 +73,7 @@ public class PlaylistServiceTest {
         verify(dao).removeSong(10, 20);
     }
 
-    // ================= DELETE PLAYLIST =================
+
     @Test
     public void testDeletePlaylist() {
         when(dao.deletePlaylist(5)).thenReturn(true);
@@ -84,7 +84,7 @@ public class PlaylistServiceTest {
         verify(dao).deletePlaylist(5);
     }
 
-    // ================= UPDATE PLAYLIST =================
+
     @Test
     public void testUpdatePlaylist() {
         when(dao.updatePlaylist(5, "New", "Desc", "PRIVATE")).thenReturn(true);
@@ -95,7 +95,6 @@ public class PlaylistServiceTest {
         verify(dao).updatePlaylist(5, "New", "Desc", "PRIVATE");
     }
 
-    // ================= GET SONGS IN PLAYLIST =================
     @Test
     public void testGetSongsInPlaylist() {
         List<Song> songs = new ArrayList<Song>();

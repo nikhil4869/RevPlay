@@ -9,7 +9,6 @@ import com.revplay.util.DBConnection;
 public class SongDao {
 
 
-    // ================= ADD SONG =================
     public boolean addSong(Song song) {
         String sql = "INSERT INTO SONGS (SONG_ID, ALBUM_ID, ARTIST_ID, TITLE, GENRE, DURATION, RELEASE_DATE, PLAY_COUNT) " +
                      "VALUES (SONG_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, 0)";
@@ -29,7 +28,7 @@ public class SongDao {
         return false;
     }
 
-    // ================= GET ALL SONGS =================
+
     public List<Song> getAllSongs() {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT * FROM SONGS";
@@ -46,7 +45,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= GET SONGS BY ARTIST ID =================
+
     public List<Song> getSongsByArtist(int artistId) {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT * FROM SONGS WHERE ARTIST_ID=?";
@@ -63,7 +62,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= GET SONGS BY ALBUM ID =================
+
     public List<Song> getSongsByAlbum(int albumId) {
         List<Song> songs = new ArrayList<Song>();
         String sql = "SELECT * FROM SONGS WHERE ALBUM_ID=?";
@@ -80,7 +79,7 @@ public class SongDao {
         return songs;
     }
 
-    // ================= BROWSE BY GENRE =================
+
     public List<Song> getSongsByGenre(String genre) {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT * FROM SONGS WHERE UPPER(GENRE)=UPPER(?)";
@@ -97,7 +96,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= SEARCH BY SONG TITLE =================
+
     public List<Song> searchSongsByTitle(String title) {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT * FROM SONGS WHERE LOWER(TITLE) LIKE LOWER(?)";
@@ -114,7 +113,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= SEARCH BY ARTIST NAME =================
+
     public List<Song> getSongsByArtistName(String artistName) {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT s.* FROM SONGS s JOIN ARTISTS a ON s.ARTIST_ID=a.ARTIST_ID WHERE LOWER(a.NAME) LIKE LOWER(?)";
@@ -131,7 +130,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= SEARCH BY ALBUM NAME =================
+
     public List<Song> getSongsByAlbumName(String albumName) {
         List<Song> list = new ArrayList<Song>();
         String sql = "SELECT s.* FROM SONGS s JOIN ALBUMS al ON s.ALBUM_ID=al.ALBUM_ID WHERE LOWER(al.TITLE) LIKE LOWER(?)";
@@ -148,7 +147,7 @@ public class SongDao {
         return list;
     }
 
-    // ================= UPDATE SONG =================
+
     public boolean updateSong(Song song) {
         String sql = "UPDATE SONGS SET TITLE=?, GENRE=?, DURATION=?, RELEASE_DATE=? WHERE SONG_ID=?";
         try {Connection conn = DBConnection.getConnection();
@@ -166,7 +165,7 @@ public class SongDao {
         return false;
     }
 
-    // ================= DELETE SONG =================
+
     public boolean deleteSong(int songId) {
         String sql = "DELETE FROM SONGS WHERE SONG_ID=?";
         try {Connection conn = DBConnection.getConnection();
@@ -179,7 +178,7 @@ public class SongDao {
         return false;
     }
 
-    // ================= PLAY COUNT =================
+
     public int getPlayCount(int songId) {
         String sql = "SELECT PLAY_COUNT FROM SONGS WHERE SONG_ID=?";
         try {Connection conn = DBConnection.getConnection();
@@ -205,7 +204,7 @@ public class SongDao {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    // ================= FAVORITE COUNT =================
+
     public int getFavoritesCount(int songId) {
         String sql = "SELECT COUNT(*) FROM FAVORITES WHERE SONG_ID=?";
         try {Connection conn = DBConnection.getConnection();
@@ -220,7 +219,7 @@ public class SongDao {
         return 0;
     }
 
-    // ================= COMMON RESULTSET MAPPER =================
+
     private Song extractSong(ResultSet rs) throws SQLException {
         Song s = new Song();
         s.setSongId(rs.getInt("SONG_ID"));

@@ -16,7 +16,7 @@ public class ArtistService {
         this.artistDao = artistDao;
     }
 
-    // 🔹 CREATE PROFILE
+
     public boolean createProfile(int userId, String bio, String genre, String social) {
 
         logger.info("Artist profile creation attempt for userId: {}", userId);
@@ -48,7 +48,7 @@ public class ArtistService {
         }
     }
 
-    // 🔹 UPDATE PROFILE
+
     public boolean updateProfile(int userId, String bio, String genre, String social) {
 
         logger.info("Updating artist profile for userId: {}", userId);
@@ -68,7 +68,7 @@ public class ArtistService {
         }
     }
 
-    // 🔹 GET PROFILE
+
     public Artist getProfile(int userId) {
 
         logger.debug("Fetching artist profile for userId: {}", userId);
@@ -81,7 +81,7 @@ public class ArtistService {
         }
     }
 
-    // 🔹 PROFILE EXISTS
+
     public boolean profileExists(int userId) {
 
         logger.debug("Checking artist profile existence for userId: {}", userId);

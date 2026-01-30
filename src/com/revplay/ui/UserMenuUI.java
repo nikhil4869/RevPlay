@@ -12,21 +12,21 @@ import java.util.List;
 
 public class UserMenuUI {
 
-    // 🔹 CREATE DAO LAYER
+
     private static SongDao songDao = new SongDao();
     private static PlaylistDao playlistDao = new PlaylistDao();
     private static FavoriteDao favoriteDao = new FavoriteDao();
     private static RecentlyPlayedDao recentDao = new RecentlyPlayedDao();
     private static AlbumDao albumDao = new AlbumDao();
 
-    // 🔹 CREATE SERVICE LAYER (constructor injection)
+
     private static SongService songService = new SongService(songDao);
     private static PlaylistService playlistService = new PlaylistService(playlistDao);
     private static FavoriteService favoriteService = new FavoriteService(favoriteDao);
     private static RecentlyPlayedService recentService = new RecentlyPlayedService(recentDao);
     private static AlbumService albumService = new AlbumService(albumDao);
 
-    // 🔹 PlayerService depends on 2 services
+
     private static PlayerService playerService =
             new PlayerService(songService, recentService);
 
@@ -97,13 +97,13 @@ public class UserMenuUI {
                     try {
                         List<Playlist> pls = playlistService.getMine(user.getUserId());
 
-                        // 🔴 No playlists exist
+
                         if (pls == null || pls.isEmpty()) {
                             System.out.println("You have no playlists.");
                             break;
                         }
 
-                        // 🔹 Show playlists
+
                         System.out.println("\n--- My Playlists ---");
                         for (Playlist pl : pls) {
                             System.out.println(pl.getPlaylistId() + " - " + pl.getName() 
@@ -113,7 +113,7 @@ public class UserMenuUI {
                         System.out.print("Enter Playlist ID to open (0 to cancel): ");
                         String inputId = RevPlayApp.sc.nextLine();
 
-                        // 🔴 Empty input
+
                         if (inputId == null || inputId.trim().isEmpty()) {
                             System.out.println("Cancelled.");
                             break;
@@ -129,7 +129,7 @@ public class UserMenuUI {
 
                         if (selectedId == 0) break;
 
-                        // 🔴 Validate playlist belongs to user
+
                         boolean valid = false;
                         for (Playlist pl : pls) {
                             if (pl.getPlaylistId() == selectedId) {
@@ -143,7 +143,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔹 Get songs inside playlist
+
                         List<Song> songsInPlaylist = playlistService.getSongsInPlaylist(selectedId);
 
                         if (songsInPlaylist == null || songsInPlaylist.isEmpty()) {
@@ -151,7 +151,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔹 Show songs
+
                         System.out.println("\n--- Songs in Playlist ---");
                         for (Song s : songsInPlaylist) {
                             System.out.println(s.getSongId() + " - " + s.getTitle());
@@ -164,16 +164,16 @@ public class UserMenuUI {
 
 
                 case 4:
-                    // ðŸ”¹ Get user's playlists
+
                     List<Playlist> playlists = playlistService.getMine(user.getUserId());
 
-                    // ðŸ”´ STOP if no playlists
+
                     if (playlists == null || playlists.isEmpty()) {
                         System.out.println("No playlists present to add songs.");
                         break;
                     }
 
-                    // ðŸ”¹ Show playlists
+
                     System.out.println("\n--- My Playlists ---");
                     for (Playlist pl : playlists) {
                         System.out.println(pl.getPlaylistId() + " - " + pl.getName());
@@ -182,7 +182,7 @@ public class UserMenuUI {
                     System.out.print("Playlist ID: ");
                     int pid = Integer.parseInt(RevPlayApp.sc.nextLine());
 
-                    // ðŸ”´ Validate playlist ID
+
                     boolean validPlaylist = false;
                     for (Playlist pl : playlists) {
                         if (pl.getPlaylistId() == pid) {
@@ -196,16 +196,16 @@ public class UserMenuUI {
                         break;
                     }
 
-                    // ðŸ”¹ Get all songs
+
                     List<Song> allSongs = songService.viewAllSongs();
 
-                    // ðŸ”´ STOP if no songs exist
+
                     if (allSongs == null || allSongs.isEmpty()) {
                         System.out.println("No songs available.");
                         break;
                     }
 
-                    // ðŸ”¹ Show songs
+
                     System.out.println("\n--- Available Songs ---");
                     for (Song s : allSongs) {
                         System.out.println(s.getSongId() + " - " + s.getTitle());
@@ -214,7 +214,7 @@ public class UserMenuUI {
                     System.out.print("Song ID: ");
                     int sid = Integer.parseInt(RevPlayApp.sc.nextLine());
 
-                    // ðŸ”´ Validate song ID
+
                     boolean validSong = false;
                     for (Song s : allSongs) {
                         if (s.getSongId() == sid) {
@@ -228,7 +228,7 @@ public class UserMenuUI {
                         break;
                     }
 
-                    // ðŸ”¹ Add to playlist
+
                     if (playlistService.addSong(pid, sid))
                         System.out.println("Song added to playlist!");
                     else
@@ -242,13 +242,13 @@ public class UserMenuUI {
                 case 5:
                     List<Playlist> playlists2 = playlistService.getMine(user.getUserId());
 
-                    // ðŸ”´ STOP if no playlists
+
                     if (playlists2 == null || playlists2.isEmpty()) {
                         System.out.println("No playlists available.");
                         break;
                     }
 
-                    // ðŸ”¹ Show playlists
+
                     System.out.println("\n--- My Playlists ---");
                     for (Playlist pl : playlists2) {
                         System.out.println(pl.getPlaylistId() + " - " + pl.getName());
@@ -257,7 +257,7 @@ public class UserMenuUI {
                     System.out.print("Playlist ID: ");
                     int pid2 = Integer.parseInt(RevPlayApp.sc.nextLine());
 
-                    // ðŸ”´ Validate playlist ID
+
                     boolean validPlaylist2 = false;
                     for (Playlist pl : playlists2) {
                         if (pl.getPlaylistId() == pid2) {
@@ -271,7 +271,7 @@ public class UserMenuUI {
                         break;
                     }
 
-                    // ðŸ”¹ Show songs inside playlist
+
                     List<Song> playlistSongs = playlistService.getSongsInPlaylist(pid2);
 
                     if (playlistSongs == null || playlistSongs.isEmpty()) {
@@ -287,7 +287,7 @@ public class UserMenuUI {
                     System.out.print("Song ID to remove: ");
                     int sid2 = Integer.parseInt(RevPlayApp.sc.nextLine());
 
-                    // ðŸ”´ Validate song exists in playlist
+
                     boolean validSong2 = false;
                     for (Song s : playlistSongs) {
                         if (s.getSongId() == sid2) {
@@ -312,13 +312,13 @@ public class UserMenuUI {
                 case 6:
                     List<Playlist> myPlaylists = playlistService.getMine(user.getUserId());
 
-                    // ðŸ”´ STOP IF EMPTY
+
                     if (myPlaylists == null || myPlaylists.isEmpty()) {
                         System.out.println("There are no playlists to delete.");
                         break;
                     }
 
-                    // ðŸ”¹ Show playlists
+
                     System.out.println("\n--- My Playlists ---");
                     for (Playlist pl : myPlaylists) {
                         System.out.println(pl.getPlaylistId() + " - " + pl.getName());
@@ -327,7 +327,7 @@ public class UserMenuUI {
                     System.out.print("Playlist ID: ");
                     pid = Integer.parseInt(RevPlayApp.sc.nextLine());
 
-                    // ðŸ”´ Check ID exists
+
                     boolean found = false;
                     for (Playlist pl : myPlaylists) {
                         if (pl.getPlaylistId() == pid) {
@@ -352,7 +352,7 @@ public class UserMenuUI {
                 case 7:
 
                     try {
-                        // 🔹 Get all songs
+
                         List<Song> allSongsFav = songService.viewAllSongs();
 
                         if (allSongsFav == null || allSongsFav.isEmpty()) {
@@ -360,7 +360,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔹 Display songs
+
                         System.out.println("\n--- Available Songs ---");
                         for (Song s : allSongsFav) {
                             System.out.println(s.getSongId() + " - " + s.getTitle());
@@ -369,7 +369,7 @@ public class UserMenuUI {
                         System.out.print("Enter Song ID to add to favorites (0 to cancel): ");
                         String input1 = RevPlayApp.sc.nextLine();
 
-                        // 🔴 Blank input
+
                         if (input1.isEmpty()) {
                             System.out.println("Operation cancelled.");
                             break;
@@ -377,7 +377,7 @@ public class UserMenuUI {
 
                         int favSongId;
 
-                        // 🔴 Not a number
+
                         try {
                             favSongId = Integer.parseInt(input1);
                         } catch (NumberFormatException e) {
@@ -390,7 +390,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔴 Validate song exists
+
                         boolean songExists = false;
                         for (Song s : allSongsFav) {
                             if (s.getSongId() == favSongId) {
@@ -404,7 +404,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔴 Check duplicate favorite
+ 
                         List<Song> favList = favoriteService.getFavorites(user.getUserId());
 
                         boolean alreadyFav = false;
@@ -419,10 +419,10 @@ public class UserMenuUI {
 
                         if (alreadyFav) {
                             System.out.println("Song already in favorites.");
-                            break; // 🚫 STOP DB CALL
+                            break; 
                         }
 
-                        // 🔹 Safe DB insert
+
                         if (favoriteService.add(user.getUserId(), favSongId))
                             System.out.println("Song added to favorites!");
                         else
@@ -438,16 +438,16 @@ public class UserMenuUI {
                 case 8:
 
                     try {
-                        // 🔹 Fetch user's favorite songs
+
                         List<Song> favSongs = favoriteService.getFavorites(user.getUserId());
 
-                        // 🔴 No favorites exist
+
                         if (favSongs == null || favSongs.isEmpty()) {
                             System.out.println("You have no favorite songs to remove.");
                             break;
                         }
 
-                        // 🔹 Show favorite songs
+
                         System.out.println("\n--- Your Favorite Songs ---");
                         for (Song s : favSongs) {
                             System.out.println(s.getSongId() + " - " + s.getTitle());
@@ -456,7 +456,7 @@ public class UserMenuUI {
                         System.out.print("Enter Song ID to remove (0 to cancel): ");
                         String input1 = RevPlayApp.sc.nextLine();
 
-                        // 🔴 Empty input
+
                         if (input1.isEmpty()) {
                             System.out.println("Operation cancelled.");
                             break;
@@ -464,7 +464,7 @@ public class UserMenuUI {
 
                         int removeId;
 
-                        // 🔴 Non-numeric input
+
                         try {
                             removeId = Integer.parseInt(input1);
                         } catch (NumberFormatException e) {
@@ -472,13 +472,13 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔴 Cancel operation
+
                         if (removeId == 0) {
                             System.out.println("Operation cancelled.");
                             break;
                         }
 
-                        // 🔴 Validate song exists in favorites
+
                         boolean found1 = false;
                         for (Song s : favSongs) {
                             if (s.getSongId() == removeId) {
@@ -492,7 +492,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔹 Safe removal
+
                         if (favoriteService.remove(user.getUserId(), removeId))
                             System.out.println("Favorite removed successfully!");
                         else
@@ -524,7 +524,7 @@ public class UserMenuUI {
                     try {
                         while (true) {
 
-                            // 🔴 If NO SONG is currently playing → ask user to pick one
+
                             if (!playerService.isPlaying()) {
 
                                 List<Song> songsList = songService.viewAllSongs();
@@ -554,7 +554,7 @@ public class UserMenuUI {
 
                                 if (songId == 0) break;
 
-                                // 🔍 Check song exists
+
                                 boolean exists = false;
                                 for (Song s : songsList) {
                                     if (s.getSongId() == songId) {
@@ -568,11 +568,11 @@ public class UserMenuUI {
                                     continue;
                                 }
 
-                                // ▶ Play song + increase play count
+
                                 playerService.playSong(songId);
                             }
 
-                            // 🎵 PLAYER CONTROLS
+
                             System.out.println("\n🎵 PLAYER MENU");
                             System.out.println("1. Pause");
                             System.out.println("2. Resume");
@@ -605,8 +605,8 @@ public class UserMenuUI {
                                     break;
 
                                 case 4:
-                                    // ⭐ THIS LINE FIXES YOUR PROBLEM
-                                    playerService.stopSong();   // reset player state
+
+                                    playerService.stopSong();   
                                     break;
 
                                 default:
@@ -647,7 +647,7 @@ public class UserMenuUI {
                         System.out.print("Enter Album Name: ");
                         String albumName = RevPlayApp.sc.nextLine();
 
-                        // 🔴 Empty check
+
                         if (albumName == null || albumName.trim().isEmpty()) {
                             System.out.println("Album name cannot be empty.");
                             break;
@@ -662,7 +662,7 @@ public class UserMenuUI {
                             break;
                         }
 
-                        // 🔴 Album not found
+
                         if (albumId <= 0) {
                             System.out.println("No album found with that name.");
                             break;
@@ -703,7 +703,7 @@ public class UserMenuUI {
 
                         String input2 = RevPlayApp.sc.nextLine();
 
-                        // 🔴 Empty input check
+
                         if (input2 == null || input2.trim().isEmpty()) {
                             System.out.println("Choice cannot be empty.");
                             break;
@@ -774,13 +774,13 @@ public class UserMenuUI {
                                 break;
                         }
 
-                        // 🔴 No results found
+
                         if (result == null || result.isEmpty()) {
                             System.out.println("No songs found.");
                             break;
                         }
 
-                        // 🔹 Display Results
+
                         System.out.println("\n--- Songs Found ---");
                         for (Song s : result) {
                             System.out.println(s.getSongId() + " - " + s.getTitle());
@@ -823,7 +823,7 @@ public class UserMenuUI {
 
                         if (pid1 == 0) break;
 
-                        // 🔴 Validate ID
+
                         boolean exists = false;
                         for (Playlist pl : publicPlaylists) {
                             if (pl.getPlaylistId() == pid1) {

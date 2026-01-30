@@ -26,10 +26,10 @@ public class PlayerServiceTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         playerService = new PlayerService(songService, recentService);
-        playerService.setUser(1); // set current user
+        playerService.setUser(1); 
     }
 
-    // ================= PLAY SONG =================
+
     @Test
     public void testPlaySong() {
         playerService.playSong(10);
@@ -39,18 +39,18 @@ public class PlayerServiceTest {
         verify(recentService).addPlayedSong(1, 10);
     }
 
-    // ================= PAUSE SONG =================
+
     @Test
     public void testPauseSong() {
-        playerService.playSong(10);  // must be playing first
+        playerService.playSong(10); 
         playerService.pauseSong();
 
         // state test
-        playerService.resumeSong(); // should work (means pause happened)
+        playerService.resumeSong(); 
         verify(songService).incrementPlayCount(10);
     }
 
-    // ================= RESUME SONG =================
+
     @Test
     public void testResumeSongWhenPaused() {
         playerService.playSong(10);
@@ -60,7 +60,7 @@ public class PlayerServiceTest {
         assertTrue(playerService.isPlaying());
     }
 
-    // ================= STOP SONG =================
+
     @Test
     public void testStopSong() {
         playerService.playSong(10);
@@ -69,7 +69,7 @@ public class PlayerServiceTest {
         assertFalse(playerService.isPlaying());
     }
 
-    // ================= PAUSE WITHOUT PLAY =================
+
     @Test
     public void testPauseWithoutPlaying() {
         playerService.pauseSong();

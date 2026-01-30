@@ -25,7 +25,7 @@ public class UserServiceTest {
         userService = new UserService(userDao);
     }
 
-    // 🔹 TEST REGISTER
+
     @Test
     public void testRegisterSuccess() {
         when(userDao.registerUser(any(User.class))).thenReturn(true);
@@ -36,7 +36,7 @@ public class UserServiceTest {
         verify(userDao).registerUser(any(User.class));
     }
 
-    // 🔹 TEST LOGIN
+
     @Test
     public void testLoginSuccess() {
         User mockUser = new User();
@@ -51,7 +51,7 @@ public class UserServiceTest {
         verify(userDao).login("nikhil", "1234");
     }
 
-    // 🔹 TEST VERIFY USER
+
     @Test
     public void testVerifyUser() {
         when(userDao.verifyUser("mail@test.com", "nikhil")).thenReturn(true);
@@ -62,7 +62,7 @@ public class UserServiceTest {
         verify(userDao).verifyUser("mail@test.com", "nikhil");
     }
 
-    // 🔹 TEST RESET PASSWORD
+
     @Test
     public void testResetPassword() {
         when(userDao.updatePassword("mail@test.com", "newpass")).thenReturn(true);

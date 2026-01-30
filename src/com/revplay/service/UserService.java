@@ -12,12 +12,12 @@ public class UserService {
 
     private UserDao userDao;
 
-    // Constructor Injection
+
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
-    // 🔹 REGISTER
+
     public boolean register(String username, String email, String password, String role) {
 
         logger.info("Registration attempt for username: {}, email: {}", username, email);
@@ -44,7 +44,7 @@ public class UserService {
         }
     }
 
-    // 🔹 LOGIN
+
     public User login(String input, String password) {
 
         logger.info("Login attempt for input: {}", input);
@@ -65,7 +65,7 @@ public class UserService {
         }
     }
 
-    // 🔹 VERIFY USER
+
     public boolean verifyUser(String email, String username) {
 
         logger.info("Verifying user: {} with email: {}", username, email);
@@ -84,7 +84,7 @@ public class UserService {
         }
     }
 
-    // 🔹 RESET PASSWORD
+
     public boolean resetPassword(String email, String newPassword) {
 
         logger.info("Password reset attempt for email: {}", email);

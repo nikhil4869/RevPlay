@@ -46,3 +46,11 @@
 2026-01-30 03:23:29 INFO  com.revplay.service.RecentlyPlayedService - Adding songId: 101 to recently played for userId: 1
 2026-01-30 03:26:22 INFO  com.revplay.service.UserService - Login attempt for input: nikhil
 2026-01-30 03:26:22 INFO  com.revplay.service.UserService - Login successful for user: nikhil
+2026-01-30 03:45:49 INFO  com.revplay.service.UserService - Login attempt for input: nikhil
+2026-01-30 03:45:49 INFO  com.revplay.service.UserService - Login successful for user: nikhil
+2026-01-30 03:46:43 INFO  com.revplay.service.UserService - Login attempt for input: User
+2026-01-30 03:46:43 INFO  com.revplay.service.UserService - Login successful for user: User
+2026-01-30 09:27:10 INFO  com.revplay.service.UserService - Login attempt for input: nikhil
+2026-01-30 09:27:10 INFO  com.revplay.service.UserService - Login successful for user: nikhil
+2026-01-30 09:28:00 INFO  com.revplay.service.UserService - Login attempt for input: nikhil
+2026-01-30 09:28:01 INFO  com.revplay.service.UserService - Login successful for user: nikhil
